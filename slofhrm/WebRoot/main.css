@@ -1,0 +1,74 @@
+.icon-importxls {
+	background-image: url(btnimg/importxls.png) !important;
+}
+
+.icon-nav {
+	background-image: url(btnimg/folder_go.png) !important;
+}
+
+.icon-settings {
+	background-image: url(btnimg/folder_wrench.png) !important;
+}
+
+.icon-table-add {
+	background-image: url(btnimg/table_add.png) !important;
+}
+
+.icon-table-del {
+	background-image: url(btnimg/table_delete.png) !important;
+}
+
+.icon-add {
+	background-image: url(btnimg/add.gif) !important;
+}
+
+.icon-edit {
+	background-image: url(btnimg/edit.gif) !important;
+}
+
+.icon-del {
+	background-image: url(btnimg/del.gif) !important;
+}
+
+.icon-del-gray {
+	background-image: url(btnimg/del_gray.gif) !important;
+}
+
+.icon-search {
+	background-image: url(btnimg/search.gif) !important;
+}
+
+.icon-grid {
+	background-image: url(btnimg/grid.png) !important;
+}
+
+.icon-plugin {
+	background-image: url(btnimg/plugin.gif) !important;
+}
+
+.icon-delete {
+	background-image: url(btnimg/delete.gif) !important;
+}
+
+.icon-info {
+	background-image: url(btnimg/info.gif) !important;
+}
+/*
+.upload-icon {
+	background: url('/bmsh/image_add.png') no-repeat 0 0 !important;
+}
+*/
+.x-grid3-row-body p {
+	margin: 5px 5px 10px 5px !important;
+}
+
+/*------ stripRows color -----*/
+.x-grid3-row-alt{
+	background-color:#ffffdd;
+}
+
+body,td,th {
+	font-family:
+		'Geneva, Arial, Helvetica, sans-serif,lucida grande, tahoma, arial, sans-serif';
+	font-size: 12px;
+}

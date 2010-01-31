@@ -1,0 +1,57 @@
+.title {
+	font-size: 24px;
+	font-style: normal;
+	font-weight: bold;
+	text-decoration: none;
+}
+.smft {
+	font-size: 13px;
+	color: #000000;
+	text-decoration: none;
+}
+.textfield {
+	font-family: "Arial";
+	font-size: 12px;
+}
+.button {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 12px;
+}
+.td {
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	border-left-color: #000000;
+	font-family: "ËÎÌו";
+	font-size: 14px;
+	color: #000000;
+	text-decoration: none;
+
+}
+.rb {
+	border-top-width: 0px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 0px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	border-left-color: #000000;
+}
+.mf {
+	font-family: "ËÎÌו";
+	font-size: 18px;
+	font-weight: bold;
+}

@@ -1,0 +1,6 @@
+[DATABASE]
+Server=localhost
+DataBase=hjsb
+User=hjsb
+Password=hjsb
+Port=1433

@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>海洋石油设施与设备检验管理信息系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+</head>
+<link rel="shortcut icon" href="favicon.ico" />
+<style>
+BODY {
+	FONT-FAMILY: "宋体", "Arial"; FONT-SIZE: 12pt
+}
+TD {
+	FONT-FAMILY: "宋体", "Arial"; FONT-SIZE: 12pt
+}
+table {
+	FONT-FAMILY: "宋体", "Arial"; FONT-SIZE: 12pt
+}
+</style>
+<body background="image/jczxlogin800.jpg">
+<SCRIPT Language=javascript>
+function CheckData()
+{	
+	if (frmlogin.yhmc.value == "") 
+	{   //检查是否完成姓名输入	
+		window.alert("请输入用户名!");
+		frmlogin.yhmc.focus();
+	}
+	else if(frmlogin.yhmm.value == "")
+	{   //检查是否完成E-Mail帐号输入	
+		window.alert("请输入密码!");
+		frmlogin.yhmm.focus();
+	}
+	else{ 
+		var pattern = /^([a-zA-Z0-9]{2,8})$/;
+		beTrue = pattern.test(frmlogin.yhmc.value); 
+		if(beTrue){
+			frmlogin.submit(); //送出表单中的数据
+		}else{
+			window.alert("请输入合理的字符串！\n即只包含字母和数字的字符串。");
+			frmlogin.yhmc.focus();
+		}
+	}
+}
+function enterCheckData()
+{	
+	if (event.keyCode==13){
+		if (frmlogin.yhmc.value == "") 
+		{   //检查是否完成姓名输入	
+			window.alert("请输入用户名!");
+			frmlogin.yhmc.focus();
+		}
+		else if(frmlogin.yhmm.value == "")
+		{   //检查是否完成E-Mail帐号输入	
+			window.alert("请输入密码!");
+			frmlogin.yhmm.focus();
+		}
+		
+		else //通过所有检查		
+			frmlogin.submit(); //送出表单中的数据
+	}	
+}
+
+function xgmm()
+{
+		
+	if (frmlogin.yhmc.value == "") 
+	{   //检查是否完成姓名输入	
+		window.alert("请输入用户名!");
+		frmlogin.yhmc.focus();
+	}
+	else if(frmlogin.yhmm.value == "")
+	{   //检查是否完成E-Mail帐号输入	
+		window.alert("请输入密码!");
+		frmlogin.yhmm.focus();
+	}
+	else //通过所有检查		
+	{
+		var pattern = /^([a-zA-Z0-9]{2,8})$/;
+		beTrue = pattern.test(frmlogin.yhmc.value); 
+		if(beTrue){
+			frmlogin.action="login.jsp?xg=1"
+			frmlogin.submit(); //送出表单中的数据
+		}else{
+			window.alert("请输入合理的字符串！\n即只包含字母和数字的字符串。");
+			frmlogin.yhmc.focus();
+		}
+	}
+}
+</SCRIPT>
+<form name="frmlogin" method="post" action="login.jsp">
+	<input name="yhmc" tabindex="1" type="text" maxlength="20" title="最多20个字符" style="border-style: groove; position: absolute; top: 270px; left: 500px; height: 22px; width: 160px;">
+	<input name="yhmm" tabindex="2" onkeydown="enterCheckData()" type="password" maxlength="20" title="最多20个字符" style="border-style: groove; position: absolute; top: 310px; left: 500px; height: 22px; width: 160px;">
+	<input type="button" value=" 登  录 " name=button1 onClick='CheckData()' style="position:absolute; top:350px; left:440px; color:#FF6600; height:25px; font-weight:bolder">
+	<input type="button" value="修改密码"  name=button2 onClick='xgmm()' style="position:absolute; top:350px; left:550px; color:#FF6600; height:25px; font-weight:bolder">
+</form>
+</body>
+</html>

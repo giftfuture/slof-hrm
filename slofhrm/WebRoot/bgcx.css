@@ -1,0 +1,14 @@
+BODY {
+	FONT-FAMILY: "ËÎÌו", "Arial"; FONT-SIZE: 9pt
+}
+TD {
+	FONT-FAMILY: "ËÎÌו", "Arial"; FONT-SIZE: 9pt
+}
+table {
+	FONT-FAMILY: "ËÎÌו", "Arial"; FONT-SIZE: 9pt
+}
+
+A:link {COLOR: #000000; TEXT-DECORATION: none}
+A:visited {COLOR: #000000; TEXT-DECORATION: none}
+A:hover {COLOR: red; TEXT-DECORATION: underline}
+
