@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<!-- SqlServer 2000 C3P0 Driver -->
+	<!-- unreturnedConnectionTimeout太小的话，调试时，经常停在连接check out时，会被自动回收，程序调试会报错 -->
+	<Resource
+		name="jdbc/C3P0MSSQLHJSB"
+		auth="Container"
+		driverClass="net.sourceforge.jtds.jdbc.Driver"
+		maxPoolSize="100"
+		minPoolSize="5"
+		initialPoolSize="5"
+		maxConnectionAge="5"
+		unreturnedConnectionTimeout="10"
+		debugUnreturnedConnectionStackTraces="false"
+		maxIdleTime="0"
+		acquireIncrement="5"
+		user="hjsb"
+		password="hjsb"
+		factory="org.apache.naming.factory.BeanFactory"
+		type="com.mchange.v2.c3p0.ComboPooledDataSource"
+		jdbcUrl="jdbc:jtds:sqlserver://localhost:1433/hjsb" />
+</Context>

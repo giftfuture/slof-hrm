@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>海洋石油设施与设备检验管理信息系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<link rel="shortcut icon" href="favicon.ico" />
+<SCRIPT Language=javascript>
+function CheckData()
+{
+		
+	if (form1.yhmc.value == "") 
+	{   //检查是否完成姓名输入	
+		window.alert("请输入用户名!");
+		form1.yhmc.focus();
+	}
+	else if(form1.yhmm.value == "")
+	{   //检查是否完成E-Mail帐号输入	
+		window.alert("请输入密码!");
+		form1.yhmm.focus();
+	}
+	
+	else //通过所有检查		
+		form1.submit(); //送出表单中的数据
+}
+function xgmm()
+{
+		
+	if (form1.yhmc.value == "") 
+	{   //检查是否完成姓名输入	
+		window.alert("请输入用户名!");
+		form1.yhmc.focus();
+	}
+	else if(form1.yhmm.value == "")
+	{   //检查是否完成E-Mail帐号输入	
+		window.alert("请输入密码!");
+		form1.yhmm.focus();
+	}
+	else //通过所有检查		
+	{
+	document.form1.action="xgmm.jsp";
+	form1.submit(); //送出表单中的数据
+	
+	}
+}
+function fbl(){
+	var width,height;
+	width = screen.width;
+	height = screen.height;
+	if(width>=1280){
+		 window.location="index1280.htm";
+	}else if(width==1024){
+		window.location="index1024.htm";
+	}else if(width==800){
+		window.location="index800.htm";
+	}
+}
+ </SCRIPT>
+</head>
+<body onLoad="fbl()">
+</body>
+</html>

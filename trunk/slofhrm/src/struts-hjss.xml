@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+<struts>
+    <package name="Hysyssxx" extends="json-default" namespace="/hysysswh">
+        <action name="saveHysySsxx" class="com.tic.hjsb.HysySswhAction" method="saveHysySsxx">
+            <result name="success" type="json">
+                <param name="contentType">text/html</param>
+                <param name="includeProperties">success,errorMsg</param>
+            </result>
+        </action>
+        
+        <action name="deleteHysySsxx" class="com.tic.hjsb.HysySswhAction" method="deleteHysySsxx">
+            <result type="json">
+                <param name="contentType">text/html</param>
+                <param name="includeProperties">success,errorMsg</param>
+            </result>
+        </action>
+        
+        <action name="tjshss" class="com.tic.hjsb.HysySswhAction" method="tjshss">
+            <result type="json">
+                <param name="contentType">text/html</param>
+                <param name="includeProperties">success,errorMsg</param>
+            </result>
+        </action>
+        
+        <action name="findAdminHysySsxx" class="com.tic.hjsb.HysySswhAction" method="findAdminHysySsxx">
+            <result type="json">
+                <param name="root">page</param>
+                <param name="contentType">text/html</param>
+                <param name="excludeNullProperties">true</param>
+                <param name="excludeProperties">conditions,limit,start,success,objCondition,queryfields,queryvalue,queryyear,querymonth,querydwid,queryssfl,querysslb,queryyxzt,queryflag
+                    root\[\d*\]\.jyqk,
+                    root\[\d*\]\.jcbm,
+                    root\[\d*\]\.jcbh
+                </param>
+            </result>
+        </action>
+        
+        <action name="findShenHeHysySsxx" class="com.tic.hjsb.HysySswhAction" method="findShenHeHysySsxx">
+            <result type="json">
+                <param name="root">page</param>
+                <param name="contentType">text/html</param>
+                <param name="excludeNullProperties">true</param>
+                <param name="excludeProperties">conditions,limit,start,success,objCondition,queryfields,queryvalue,queryyear,querymonth,querydwid,queryssfl,querysslb,queryyxzt,queryflag
+                    root\[\d*\]\.jyqk,
+                    root\[\d*\]\.jcbm,
+                    root\[\d*\]\.jcbh
+                </param>
+            </result>
+        </action>
+        <action name="findYearHysySsxx" class="com.tic.hjsb.HysySswhAction" method="findYearHysySsxx">
+            <result>../json_struts2.jsp</result>
+        </action>
+        <action name="findXcjyYearHysySsxx" class="com.tic.hjsb.HysySswhAction" method="findXcjyYearHysySsxx">
+            <result>../json_struts2.jsp</result>
+        </action>
+        
+        <action name="getHysySsxxById" class="com.tic.hjsb.HysySswhAction" method="getHysySsxxById">
+            <result>../json_struts2.jsp</result>
+        </action>
+        
+        <action name="getSsfl" class="com.tic.hjsb.HysySswhAction" method="getSsfl">
+            <result>../json_struts2.jsp</result>
+        </action>
+        <action name="getSslb" class="com.tic.hjsb.HysySswhAction" method="getSslb">
+            <result>../json_struts2.jsp</result>
+        </action>
+        <action name="getSsmc" class="com.tic.hjsb.HysySswhAction" method="getSsmc">
+            <result>../json_struts2.jsp</result>
+        </action>
+        <action name="getJzdw" class="com.tic.hjsb.HysySswhAction" method="getJzdw">
+            <result>../json_struts2.jsp</result>
+        </action>
+        <action name="getGgxh" class="com.tic.hjsb.HysySswhAction" method="getGgxh">
+            <result>../json_struts2.jsp</result>
+        </action>
+        <action name="getJybm" class="com.tic.hjsb.HysySswhAction" method="getJybm">
+            <result>../json_struts2.jsp</result>
+        </action>
+        <action name="getSsflcx" class="com.tic.hjsb.HysySswhAction" method="getSsflcx">
+            <result>../json_struts2.jsp</result>
+        </action>
+        <action name="getSslbcx" class="com.tic.hjsb.HysySswhAction" method="getSslbcx">
+            <result>../json_struts2.jsp</result>
+        </action>
+        <action name="getDanwei" class="com.tic.hjsb.HysySswhAction" method="getDanwei">
+            <result>../json_struts2.jsp</result>
+        </action>
+        <action name="getDanweiHasData" class="com.tic.hjsb.HysySswhAction" method="getDanweiHasData">
+            <result>../json_struts2.jsp</result>
+        </action>
+        <action name="shtgss" class="com.tic.hjsb.HysySswhAction" method="shtgss">
+            <result>../json_struts2.jsp</result>
+        </action>
+        <action name="shbtgss" class="com.tic.hjsb.HysySswhAction" method="shbtgss">
+            <result>../json_struts2.jsp</result>
+        </action>
+        
+        
+        
+        <!-- 
+            <action name="getClfyqrbDocById" class="com.tic.hjsb.HysySswhAction" method="getClfyqrbDocById">
+            <result name="success" type="plainText">plainText.jsp</result>
+            </action>
+        -->
+    </package>
+</struts>

@@ -1,0 +1,26 @@
+BODY {
+	FONT-FAMILY: "ËÎÌו", "Arial"; FONT-SIZE: 9pt
+}
+TD {
+	FONT-FAMILY: "ËÎÌו", "Arial"; FONT-SIZE: 9pt
+}
+table {
+	FONT-FAMILY: "ËÎÌו", "Arial"; FONT-SIZE: 9pt
+}
+
+A:link {
+	COLOR: #008080; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #008080; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #FF1493; TEXT-DECORATION: none
+}
+.menu1 {
+	font-size: 14px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: normal;
+	cursor: auto;
+}

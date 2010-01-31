@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+           				http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+           				http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+						
+	<!-- 定义数据源Bean，使用C3P0数据源实现
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="net.sourceforge.jtds.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:jtds:sqlserver://10.67.206.245:1433/scbg"/>
+        <property name="user" value="scbg"/>
+        <property name="password" value="scbg"/>
+        <property name="maxPoolSize" value="20"/>
+        <property name="minPoolSize" value="5"/>
+        <property name="initialPoolSize" value="5"/>
+        <property name="maxIdleTime" value="20"/>
+    </bean>
+	 -->
+	 
+	<bean id="dataSourcetest" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="net.sourceforge.jtds.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:jtds:sqlserver://localhost:1433/hjsb"/>
+        <property name="user" value="hjsb"/>
+        <property name="password" value="hjsb"/>
+        <property name="maxPoolSize" value="20"/>
+        <property name="minPoolSize" value="5"/>
+        <property name="initialPoolSize" value="5"/>
+        <property name="maxIdleTime" value="20"/>
+    </bean>
+	<!-- JNDI 数据库连接池
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+       <property name="jndiName">
+           <value>java:comp/env/jdbc/C3P0MSSQLHJSB</value>
+       </property>
+    </bean>
+ -->
+	<!-- 配置sessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSourcetest" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+				<prop key="show_sql">true</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/tic/hjsb/HysyLb.hbm.xml</value>
+				<value>com/tic/hjsb/HysySbxx.hbm.xml</value>
+				<value>com/tic/hjsb/HysySsxx.hbm.xml</value>
+				<value>com/tic/hjsb/XtgltDanwei.hbm.xml</value>
+			</list>
+		</property>
+		<!--
+		<property name="configLocation">
+			<value>classpath:hibernate.cfg.xml</value>
+		</property>
+		-->
+	</bean>
+	
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>	
+	</bean>
+	
+	<!-- 配置事务的传播特性 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 那些类的哪些方法参与事务 -->
+	<aop:config>
+		<aop:pointcut id="allManagerMethod" expression="execution(* com.tic.cheliang.*DaoImpl.*(..))"/>
+		<aop:advisor pointcut-ref="allManagerMethod" advice-ref="txAdvice"/>
+	</aop:config>
+	
+	<!-- Dozer 配置-->
+	<bean id="dozermapper" class="org.dozer.DozerBeanMapper" scope="singleton">
+		<!-- 
+		<property name="mappingFiles" >
+			<list>
+				<value>dozer-global-configuration.xml</value>			  
+				<value>dozer-bean-mappings.xml</value>
+			</list>
+		</property>
+		 -->
+	</bean>
+</beans>
