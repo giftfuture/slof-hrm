@@ -1,4 +1,4 @@
-package com.tic.hjsb;
+package com.tic.hrm;
 
 // Download by http://www.codefans.net
 import java.util.List;

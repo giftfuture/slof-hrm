@@ -1,4 +1,4 @@
-package com.tic.hjsb;
+package com.tic.hrm;
 
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -1,4 +1,4 @@
-package com.tic.hjsb;
+package com.tic.hrm;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,30 +16,30 @@ import org.apache.struts2.StrutsStatics;
 import com.opensymphony.xwork2.ActionContext;
 
 @SuppressWarnings({ "unused", "serial" })
-public class HysySswhAction extends BaseAction implements StrutsStatics {
+public class HysySbwhAction extends BaseAction implements StrutsStatics {
 
-	private IHysySswhService hysysswhService;
-	private HysySsxx hysyssxx;
+	private IHysySbwhService hysysbwhService;
+	private HysySbxx hysysbxx;
 	private Integer flid;
 	private Page page;
 	private boolean success;
 	private String errorMsg;
 	
-	public String saveHysySsxx() {
+	public String saveHysySbxx() {
 		// 添加录入时间
-		hysyssxx.setLrrq(new Date());
+		hysysbxx.setLrrq(new Date());
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(HTTP_REQUEST);
 		HttpSession httpSession = request.getSession();
 		String danwei_id =(String)httpSession.getAttribute("danweiid");
-		hysyssxx.setLrdwId(Integer.parseInt(danwei_id));
-		if(hysyssxx.getSsmc()!=null){
-			hysyssxx.setSsid(hysysswhService.getSsid(hysyssxx.getSsmc()));
+		hysysbxx.setLrdwId(Integer.parseInt(danwei_id));
+		if(hysysbxx.getSbmc()!=null){
+			hysysbxx.setSbid(hysysbwhService.getSbid(hysysbxx.getSbmc()));
 		}
-		if(hysyssxx.getLbmc()!=null){
-			hysyssxx.setLbid(hysysswhService.getLbid(hysyssxx.getLbmc()));
+		if(hysysbxx.getLbmc()!=null){
+			hysysbxx.setLbid(hysysbwhService.getLbid(hysysbxx.getLbmc()));
 		}
-		hysyssxx.setSsflag("未完成");
-		if (hysysswhService.saveHysySsxx(hysyssxx)) {
+		hysysbxx.setSbflag("未完成");
+		if (hysysbwhService.saveHysySbxx(hysysbxx)) {
 			this.success = true;
 		} else {
 			this.success = false;
@@ -48,11 +48,11 @@ public class HysySswhAction extends BaseAction implements StrutsStatics {
 		return SUCCESS;
 	}
 	
-	public String deleteHysySsxx() {
-		String strAryHysySsxxId = getRequest().getParameter("p_id");
-		JSONArray jsonArray = JSONArray.fromObject(strAryHysySsxxId);
+	public String deleteHysySbxx() {
+		String strAryHysySbxxId = getRequest().getParameter("p_id");
+		JSONArray jsonArray = JSONArray.fromObject(strAryHysySbxxId);
 		List ary_str = (List) JSONArray.toCollection(jsonArray);
-		if (hysysswhService.deleteHysySsxx(ary_str)) {
+		if (hysysbwhService.deleteHysySbxx(ary_str)) {
 			this.success = true;
 		} else {
 			this.success = false;
@@ -61,18 +61,18 @@ public class HysySswhAction extends BaseAction implements StrutsStatics {
 		return SUCCESS;
 	}
 	
-	public String getHysySsxxById() {
+	public String getHysySbxxById() {
 		Integer int_id = Integer.parseInt(getRequest().getParameter("id"));
-		HysySsxx hysySsxx = hysysswhService.getHysySsxxById(int_id);
-		if (hysySsxx != null) {
+		HysySbxx hysySbxx = hysysbwhService.getHysySbxxById(int_id);
+		if (hysySbxx != null) {
 			//JsonConfig jsonconf = new JsonConfig();
-			//String[] excludes = { "HysySsxx", "class" };
+			//String[] excludes = { "HysySbxx", "class" };
 			//jsonconf.setExcludes(excludes);
-			//JSONArray jsonArray = JSONArray.fromObject(hysySsxx, jsonconf);
-			//String json_ssxx=JsonUtil.getJSONString(hysySsxx, jsonconf);
-			//Integer json_flid= hysysswhService.getFlidBylbId(hysySsxx.getLbid());
-			//String json_flmc= hysysswhService.getFlmcById(json_flid);
-			String json_jyqk= hysySsxx.getJyqk();
+			//JSONArray jsonArray = JSONArray.fromObject(hysySbxx, jsonconf);
+			//String json_sbxx=JsonUtil.getJSONString(hysySbxx, jsonconf);
+			//Integer json_flid= hysysbwhService.getFlidBylbId(hysySbxx.getLbid());
+			//String json_flmc= hysysbwhService.getFlmcById(json_flid);
+			String json_jyqk= hysySbxx.getJyqk();
 			//this.jsonString = "{success:true, flid:"+json_flid+", flmc:'"+json_flmc+"', jyqk:"+json_jyqk+"}";
 			this.jsonString = "{success:true, jyqk:"+json_jyqk+"}";
 			return SUCCESS;
@@ -81,7 +81,8 @@ public class HysySswhAction extends BaseAction implements StrutsStatics {
 		}
 	}
 	
-	public String findAdminHysySsxx() {
+	public String findAdminHysySbxx() {
+		
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(HTTP_REQUEST);
 		HttpSession httpSession = request.getSession();
 		String danwei_id =(String)httpSession.getAttribute("danweiid");
@@ -97,17 +98,18 @@ public class HysySswhAction extends BaseAction implements StrutsStatics {
 		    listflag.add("已完成");
 		}
 		page.setListflag(listflag);
-		page = hysysswhService.findHysySsxxByPage(page,danwei_id,cx);
+		page = hysysbwhService.findHysySbxxByPage(page,danwei_id,cx);
 		return SUCCESS;
 	}
+	
 
-    // 报告审核查询
-    public String findShenHeHysySsxx() {
-    	HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(HTTP_REQUEST);
-		HttpSession httpSession = request.getSession();
-		String danwei_id =(String)httpSession.getAttribute("danweiid");
-		String cx=getRequest().getParameter("cx");
-    	getCommonPage();
+	    // 报告审核查询
+	    public String findShenHeHysySbxx() {
+	    	HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(HTTP_REQUEST);
+			HttpSession httpSession = request.getSession();
+			String danwei_id =(String)httpSession.getAttribute("danweiid");
+	    	getCommonPage();
+	    	String cx=getRequest().getParameter("cx");
 		List<String> listflag = new ArrayList<String>();
 		if (getRequest().getParameter("queryflag") != null && !getRequest().getParameter("queryflag").equals("0")) {
 		    listflag.add(getRequest().getParameter("queryflag"));
@@ -117,18 +119,17 @@ public class HysySswhAction extends BaseAction implements StrutsStatics {
 		    listflag.add("已完成");
 		}
 		page.setListflag(listflag);
-		page = hysysswhService.findHysySsxxByPage(page,danwei_id,cx);
+		page = hysysbwhService.findHysySbxxByPage(page,danwei_id,cx);
 		// page=getReplaceValue(page);
 		return SUCCESS;
-    }
+	    }
 
-	
 	private void getCommonPage() {
 		page = new Page();
 		int start = 0;
 		int limit = 20;
 
-		String queryfields = "", queryvalue = "", querymonth = "0", queryyear = "0", queryssfl="0", querysslb="0", queryyxzt="0",queryflag="0", querylrdwid="0";
+		String queryfields = "", queryvalue = "", querymonth = "0", queryyear = "0", querysbfl="0", querysblb="0", queryyxzt="0", queryflag="0",querylrdwid="0";
 
 		if (getRequest().getParameter("start") != null && !getRequest().getParameter("start").equals("")) {
 			start = Integer.valueOf(getRequest().getParameter("start"));
@@ -156,12 +157,12 @@ public class HysySswhAction extends BaseAction implements StrutsStatics {
 			querymonth = getRequest().getParameter("querymonth");
 		}  
 		
-		if (getRequest().getParameter("queryssfl") != null && !getRequest().getParameter("queryssfl").equals("")) {
-			queryssfl = getRequest().getParameter("queryssfl");
+		if (getRequest().getParameter("querysbfl") != null && !getRequest().getParameter("querysbfl").equals("")) {
+			querysbfl = getRequest().getParameter("querysbfl");
 		}
 		
-		if (getRequest().getParameter("querysslb") != null && !getRequest().getParameter("querysslb").equals("")) {
-			querysslb = getRequest().getParameter("querysslb");
+		if (getRequest().getParameter("querysblb") != null && !getRequest().getParameter("querysblb").equals("")) {
+			querysblb = getRequest().getParameter("querysblb");
 		}
 		
 		if (getRequest().getParameter("queryyxzt") != null && !getRequest().getParameter("queryyxzt").equals("")) {
@@ -173,12 +174,11 @@ public class HysySswhAction extends BaseAction implements StrutsStatics {
 		if (getRequest().getParameter("querydw") != null && !getRequest().getParameter("querydw").equals("")) {
 			querylrdwid = getRequest().getParameter("querydw");
 		}
+		
+
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(HTTP_REQUEST);
 		HttpSession httpSession = request.getSession();
 		String danwei_id =(String)httpSession.getAttribute("danweiid");	
-//		User login_user = (User) httpSession.getAttribute(QoSysConstant.SESSION_LOGIN_USER);
-//		Integer querylrdwid=login_user.getDepartment().getId();
-//		Integer queryparentid=login_user.getDepartment().getParentId();		
 		JSONArray jsonArray = JSONArray.fromObject(queryfields);
 		ArrayList<String> ary_query_fields = (ArrayList<String>) JSONArray.toCollection(jsonArray);
 
@@ -193,25 +193,26 @@ public class HysySswhAction extends BaseAction implements StrutsStatics {
 		page.setQueryvalue(queryvalue);
 		page.setQueryyear(queryyear);
 		page.setQuerymonth(querymonth);
-		page.setQueryssfl(queryssfl);
-		page.setQuerysslb(querysslb);
+		page.setQuerysbfl(querysbfl);
+		page.setQuerysblb(querysblb);
 		page.setQueryyxzt(queryyxzt);
 		page.setQueryflag(queryflag);
 		page.setQuerylrdwid(new Integer(querylrdwid));
 		page.setQuerydwid(new Integer(danwei_id));
 	}
+  
+	public String tjshsb() {
 
-	public String tjshss() {
-		String strAryHysySsxxId = getRequest().getParameter("p_id");
-		JSONArray jsonArray = JSONArray.fromObject(strAryHysySsxxId);
+		String strAryHysySbxxId = getRequest().getParameter("p_id");
+		JSONArray jsonArray = JSONArray.fromObject(strAryHysySbxxId);
 		List ary_str = (List) JSONArray.toCollection(jsonArray);
-		List sslist = new ArrayList();
+		List sblist = new ArrayList();
 		for (Object idInt : ary_str) {
-			HysySsxx hysySsxx = hysysswhService.getHysySsxxById((Integer) idInt);
-			hysySsxx.setSsflag("等待审核");
-			sslist.add(hysySsxx);
+			HysySbxx hysySbxx = hysysbwhService.getHysySbxxById((Integer) idInt);
+			hysySbxx.setSbflag("等待审核");
+			sblist.add(hysySbxx);
 		}
-		if (hysysswhService.saveHysySsxx(sslist)) {
+		if (hysysbwhService.saveHysySbxx(sblist)) {
 			this.success = true;
 		} else {
 			this.success = false;
@@ -220,15 +221,15 @@ public class HysySswhAction extends BaseAction implements StrutsStatics {
 		return SUCCESS;
 	}
 	
-	public String shtgss() {
+	public String shtgsb() {
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(HTTP_REQUEST);
 		HttpSession httpSession = request.getSession();
 		String danwei_id =(String)httpSession.getAttribute("danweiid");
 		String username =(String)httpSession.getAttribute("username");
-		hysyssxx.setSsshry(username);
-		hysyssxx.setSsshsj(new Date());
-		hysyssxx.setSsflag("已完成");
-		if (hysysswhService.shsscl(hysyssxx)) {
+		hysysbxx.setSbshry(username);
+		hysysbxx.setSbshsj(new Date());
+		hysysbxx.setSbflag("已完成");
+		if (hysysbwhService.shsbcl(hysysbxx)) {
 			this.jsonString = "{success:true}";
 		} else {
 			this.jsonString = "{success:false, msg:'审核通过失败！'}";
@@ -236,15 +237,15 @@ public class HysySswhAction extends BaseAction implements StrutsStatics {
 		return SUCCESS;
 	}
 	
-	public String shbtgss() {
+	public String shbtgsb() {
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(HTTP_REQUEST);
 		HttpSession httpSession = request.getSession();
 		String danwei_id =(String)httpSession.getAttribute("danweiid");
 		String username =(String)httpSession.getAttribute("username");
-		hysyssxx.setSsshry(username);
-		hysyssxx.setSsshsj(new Date());
-		hysyssxx.setSsflag("审核不通过");
-		if (hysysswhService.shsscl(hysyssxx)) {
+		hysysbxx.setSbshry(username);
+		hysysbxx.setSbshsj(new Date());
+		hysysbxx.setSbflag("审核不通过");
+		if (hysysbwhService.shsbcl(hysysbxx)) {
 			this.jsonString = "{success:true}";
 		} else {
 			this.jsonString = "{success:false, msg:'审核不通过失败！'}";
@@ -252,30 +253,30 @@ public class HysySswhAction extends BaseAction implements StrutsStatics {
 		return SUCCESS;
 	}
 	
-	public String findYearHysySsxx() {
-		this.jsonString = hysysswhService.getQueryYearJson();
+	public String findYearHysySbxx() {
+		this.jsonString = hysysbwhService.getQueryYearJson();
 		return SUCCESS;
 	}
 	
-	public String findXcjyYearHysySsxx() {
-		this.jsonString = hysysswhService.getQueryXcjyYearJson();
+	public String findXcjyYearHysySbxx() {
+		this.jsonString = hysysbwhService.getQueryXcjyYearJson();
 		return SUCCESS;
 	}
 	
-	public String getSsfl() {
-		this.jsonString = hysysswhService.getSsfl();
+	public String getSbfl() {
+		this.jsonString = hysysbwhService.getSbfl();
 		return SUCCESS;
 	}
 	
-	public String getSslb() {
+	public String getSblb() {
 		if(flid!=null) {
-			this.jsonString = hysysswhService.getSslb(flid);
+			this.jsonString = hysysbwhService.getSblb(flid);
 		}
 		return SUCCESS;
 	}
 	
-	public String getSsflcx() {
-		this.jsonString = hysysswhService.getSsflcx();
+	public String getSbflcx() {
+		this.jsonString = hysysbwhService.getSbflcx();
 		return SUCCESS;
 	}
 	
@@ -283,7 +284,7 @@ public class HysySswhAction extends BaseAction implements StrutsStatics {
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(HTTP_REQUEST);
 		HttpSession httpSession = request.getSession();
 		String danwei_id =(String)httpSession.getAttribute("danweiid");
-		this.jsonString = hysysswhService.getDanwei(danwei_id);
+		this.jsonString = hysysbwhService.getDanwei(danwei_id);
 		return SUCCESS;
 	}
 	
@@ -291,29 +292,29 @@ public class HysySswhAction extends BaseAction implements StrutsStatics {
 		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext().get(HTTP_REQUEST);
 		HttpSession httpSession = request.getSession();
 		String danwei_id =(String)httpSession.getAttribute("danweiid");
-		this.jsonString = hysysswhService.getDanweiHasData(danwei_id);
+		this.jsonString = hysysbwhService.getDanweiHasData(danwei_id);
 		return SUCCESS;
 	}
 	
-	public String getSslbcx() {
+	public String getSblbcx() {
 		if(flid!=null) {
-			this.jsonString = hysysswhService.getSslbcx(flid);
+			this.jsonString = hysysbwhService.getSblbcx(flid);
 		}
 		return SUCCESS;
 	}
 	
-	public String getSsmc() {
+	public String getSbmc() {
 		if (getRequest().getParameter("lbid") != null && !getRequest().getParameter("lbid").equals("")) {
 			Integer lbid =  new Integer(getRequest().getParameter("lbid").trim());
-			this.jsonString = hysysswhService.getSsmc(lbid);
+			this.jsonString = hysysbwhService.getSbmc(lbid);
 		}
 		return SUCCESS;
 	}
 	
-	public String getJzdw() {
+	public String getSccj() {
 		if (getRequest().getParameter("lbid") != null && !getRequest().getParameter("lbid").equals("")) {
 			Integer lbid =  new Integer(getRequest().getParameter("lbid").trim());
-			this.jsonString = hysysswhService.getJzdw(lbid);
+			this.jsonString = hysysbwhService.getSccj(lbid);
 		}
 		return SUCCESS;
 	}
@@ -321,30 +322,30 @@ public class HysySswhAction extends BaseAction implements StrutsStatics {
 	public String getGgxh() {
 		if (getRequest().getParameter("lbid") != null && !getRequest().getParameter("lbid").equals("")) {
 			Integer lbid =  new Integer(getRequest().getParameter("lbid").trim());
-			this.jsonString = hysysswhService.getGgxh(lbid);
+			this.jsonString = hysysbwhService.getGgxh(lbid);
 		}
 		return SUCCESS;
 	}
 	
 	public String getJybm() {
-		this.jsonString = hysysswhService.getJybm();
+		this.jsonString = hysysbwhService.getJybm();
 		return SUCCESS;
 	}
 	
-	public IHysySswhService getHysysswhService() {
-		return hysysswhService;
+	public IHysySbwhService getHysysbwhService() {
+		return hysysbwhService;
 	}
 
-	public void setHysysswhService(IHysySswhService hysysswhService) {
-		this.hysysswhService = hysysswhService;
+	public void setHysysbwhService(IHysySbwhService hysysbwhService) {
+		this.hysysbwhService = hysysbwhService;
 	}
 
-	public HysySsxx getHysyssxx() {
-		return hysyssxx;
+	public HysySbxx getHysysbxx() {
+		return hysysbxx;
 	}
 
-	public void setHysyssxx(HysySsxx hysyssxx) {
-		this.hysyssxx = hysyssxx;
+	public void setHysysbxx(HysySbxx hysysbxx) {
+		this.hysysbxx = hysysbxx;
 	}
 
 	public Integer getFlid() {

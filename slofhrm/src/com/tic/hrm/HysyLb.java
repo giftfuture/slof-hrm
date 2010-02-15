@@ -1,4 +1,4 @@
-package com.tic.hjsb;
+package com.tic.hrm;
 
 /**
  * HysyLb entity. @author MyEclipse Persistence Tools
