@@ -1,4 +1,4 @@
-package com.tic.hjsb;
+package com.tic.hrm;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,13 +7,13 @@ import java.util.Set;
 import org.dozer.Mapper;
 import net.sf.json.JsonConfig;
 
-public class HysySswhServiceImpl implements IHysySswhService {
+public class HysySbwhServiceImpl implements IHysySbwhService {
 	private ICommonDao commonDao;
 	private Mapper dozermapper;
 	
-	public String getSsfl() {
+	public String getSbfl() {
 		try {
-			List<HysyLb> list_lb = commonDao.findAll(HysyLb.class, "type=2", new Object[] {});
+			List<HysyLb> list_lb = commonDao.findAll(HysyLb.class, "type=1", new Object[] {});
 			JsonConfig jsonConfig = new JsonConfig();
 			String[] excludes = {"parentid", "type"};
 			jsonConfig.setExcludes(excludes);
@@ -24,7 +24,7 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		return null;
 	}
 
-	public String getSslb(Integer flid) {
+	public String getSblb(Integer flid) {
 		try {
 			List<HysyLb> list_lb = commonDao.findAll(HysyLb.class, "parentid=?", new Object[] {flid});
 			JsonConfig jsonConfig = new JsonConfig();
@@ -37,21 +37,21 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		return null;
 	}
 
-	public String getSsmc(Integer lbid) {
+	public String getSbmc(Integer lbid) {
 		try {
 			List<HysyLb> list_lb = commonDao.findAll(HysyLb.class, "parentid=?", new Object[] {lbid});
-			Set<String> set_ssmc = new HashSet<String>();
+			Set<String> set_sbmc = new HashSet<String>();
 			for (HysyLb hysyLb : list_lb) {
-				set_ssmc.add(hysyLb.getName());
+				set_sbmc.add(hysyLb.getName());
 			}
 			
-			String ssmc_sql = "select distinct ssmc from hysy_ssxx where ssid is null and lbid='"+lbid+"'";
-			List<Object> list_ssmc = commonDao.findAll(ssmc_sql);
-			for (Object object : list_ssmc) {
-				String tmp_ssmc = (String)object;
-				if(!set_ssmc.contains(tmp_ssmc)) {
+			String sbmc_sql = "select distinct sbmc from hysy_sbxx where sbid is null and lbid='"+lbid+"'";
+			List<Object> list_sbmc = commonDao.findAll(sbmc_sql);
+			for (Object object : list_sbmc) {
+				String tmp_sbmc = (String)object;
+				if(!set_sbmc.contains(tmp_sbmc)) {
 					HysyLb hysylb = new HysyLb();
-					hysylb.setName(tmp_ssmc);
+					hysylb.setName(tmp_sbmc);
 					list_lb.add(hysylb);
 				}
 			}
@@ -67,8 +67,8 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		return null;
 	}
 	
-	public String getJzdw(Integer lbid) {
-	 	return getFieldValue(lbid,"jzdw");
+	public String getSccj(Integer lbid) {
+	 	return getFieldValue(lbid,"sccj");
 	}
 	
 	public String getGgxh(Integer lbid) {
@@ -78,11 +78,11 @@ public class HysySswhServiceImpl implements IHysySswhService {
 	private String getFieldValue(Integer lbid, String fieldname) {
 		try {
 			String jsonStr="[";
-			String jzdw_sql = "select distinct "+fieldname+" from hysy_ssxx where "+fieldname+"<>'' and lbid='"+lbid+"' order by "+fieldname;
-			List<Object> list_jzdw = commonDao.findAll(jzdw_sql);
-			for (Object object : list_jzdw) {
-				String tmp_jzdw = (String)object;
-				jsonStr=jsonStr+"{name:\""+tmp_jzdw+"\"},";
+			String sccj_sql = "select distinct "+fieldname+" from hysy_sbxx where "+fieldname+"<>'' and lbid='"+lbid+"' order by "+fieldname;
+			List<Object> list_sccj = commonDao.findAll(sccj_sql);
+			for (Object object : list_sccj) {
+				String tmp_sccj = (String)object;
+				jsonStr=jsonStr+"{name:\""+tmp_sccj+"\"},";
 			}
 			jsonStr=jsonStr.substring(0,jsonStr.length()-1);
 			jsonStr=jsonStr+"]";
@@ -93,9 +93,9 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		return null;
 	}
 	
-	public String getSsmcBySsxxSql() {
+	public String getSbmcBySbxxSql() {
 		try {
-			String sql = "select distinct ssmc from hysy_ssxx where ssid is null";
+			String sql = "select distinct sbmc from hysy_sbxx where sbid is null";
 			List<Object> list_lb = commonDao.findAll(sql);
 			JsonConfig jsonConfig = new JsonConfig();
 			String[] excludes = {"parentid", "type"};
@@ -107,10 +107,10 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		return null;
 	}
 	
-	public String getSsmcBySsxxHql() {
+	public String getSbmcBySbxxHql() {
 		try {
-			String hql = "select distinct ssmc from HysySsxx where ssid is null";
-			List<HysySsxx> list_lb = commonDao.getHqlList(hql);
+			String hql = "select distinct sbmc from HysySbxx where sbid is null";
+			List<HysySbxx> list_lb = commonDao.getHqlList(hql);
 			JsonConfig jsonConfig = new JsonConfig();
 			String[] excludes = {"parentid", "type"};
 			jsonConfig.setExcludes(excludes);
@@ -124,7 +124,7 @@ public class HysySswhServiceImpl implements IHysySswhService {
 	public String getJybm() {
 		try {
 			String jsonStr="[";
-			String jybm_sql = "select distinct jybm from hysy_ssjybm order by jybm";
+			String jybm_sql = "select distinct jybm from hysy_sbjybm order by jybm";
 			List<Object> list_jybm = commonDao.findAll(jybm_sql);
 			for (Object object : list_jybm) {
 				String tmp_jybm = (String)object;
@@ -150,12 +150,12 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		return null;
 	}
 	
-	public Integer getSsid(String ssmc) {
+	public Integer getSbid(String sbmc) {
 		try {
-			String ssid_sql = "select id from hysy_lb where name ='"+ssmc+"'";
-			List<Object> list_ssid = commonDao.findAll(ssid_sql);
-			if(list_ssid.size()>0){
-				return (Integer)list_ssid.get(0);
+			String sbid_sql = "select id from hysy_lb where name ='"+sbmc+"'";
+			List<Object> list_sbid = commonDao.findAll(sbid_sql);
+			if(list_sbid.size()>0){
+				return (Integer)list_sbid.get(0);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -174,10 +174,11 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		return null;
 	}
 	
-	public Page findHysySsxxByPage(Page page,String danwei_id,String cx) {
+	public Page findHysySbxxByPage(Page page,String danwei_id,String cx) {
 		try {
-			String hql = "FROM HysySsxx";
-			String count_hql = "select count(*) FROM HysySsxx";
+
+			String hql = "FROM HysySbxx";
+			String count_hql = "select count(*) FROM HysySbxx";
 			String str_orderc = "id desc";
 			if (page.getSortfiled() != null && !page.getSortfiled().equals("")) {
 				str_orderc = page.getSortfiled() + " " + page.getSortdirection();
@@ -190,20 +191,21 @@ public class HysySswhServiceImpl implements IHysySswhService {
 			String hql_order = " order by " + str_orderc;
 			hql = hql + hql_order;
 //            System.out.print(hql);
-			List<HysySsxx> ls = commonDao.findObjectByPage(hql, page.getStart(), page.getLimit());
+			List<HysySbxx> ls = commonDao.findObjectByPage(hql, page.getStart(), page.getLimit());
 			
 			//添加类别名称，单位名称，分类id，分类名称
-			for (HysySsxx hysySsxx : ls) {
-				if(hysySsxx.getLbid()!=null){
-					hysySsxx.setLbmc(getLbmc(hysySsxx.getLbid()));
-					hysySsxx.setFlid(getFlidBylbId(hysySsxx.getLbid()));
+			for (HysySbxx hysySbxx : ls) {
+				if(hysySbxx.getLbid()!=null){
+					hysySbxx.setLbmc(getLbmc(hysySbxx.getLbid()));
+					hysySbxx.setFlid(getFlidBylbId(hysySbxx.getLbid()));
 				}
-				if(hysySsxx.getLrdwId()!=null){
-					hysySsxx.setLrdwMc(getDwmc(hysySsxx.getLrdwId()));
+				if(hysySbxx.getLrdwId()!=null){
+					hysySbxx.setLrdwMc(getDwmc(hysySbxx.getLrdwId()));
 				}
-				if(hysySsxx.getFlid()!=null){
-					hysySsxx.setFlmc(getFlmcById(hysySsxx.getFlid()));
+				if(hysySbxx.getFlid()!=null){
+					hysySbxx.setFlmc(getFlmcById(hysySbxx.getFlid()));
 				}
+
 			}
 			
 			page.setRoot(ls);
@@ -228,9 +230,9 @@ public class HysySswhServiceImpl implements IHysySswhService {
 			hql_where = hql_where.substring(0, hql_where.length() - 4);
 			hql = hql + hql_where + ")";
 		}
-		
-		String hql_where_lrdwid = "";
-		 if(cx.equals("0")){hql_where_lrdwid ="lrdw_id in (select id from XtgltDanwei where id="+danwei_id+")";
+		// 添加录入单位条件
+		String hql_where_lrdwid = "";	
+		  if(cx.equals("0")){hql_where_lrdwid ="lrdw_id in (select id from XtgltDanwei where id="+danwei_id+")";
 			// 如果没有where，添加
 			if (hql.indexOf("where") > 0) {
 				hql = hql + " and " + hql_where_lrdwid;
@@ -283,6 +285,9 @@ public class HysySswhServiceImpl implements IHysySswhService {
 			   } 
 		  
 			  }
+		 
+					
+		
 		// 添加时间条件
 		String hql_where_sj = "";
 		if (!page.getQueryyear().equals("0")) {
@@ -300,26 +305,26 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		}
 
 	
-		//添加设施分类条件 
-		String hql_where_fl = "";
-		if (!page.getQueryssfl().equals("0")&&page.getQuerysslb().equals("0")) {
-				if (!page.getQueryssfl().equals("0")) {
-					hql_where_fl = "lbid in (select id from HysyLb where parentid='"+page.getQueryssfl()+"')";
-				} 
-					if (hql.indexOf("where") > 0) {
-					hql = hql + " and " + hql_where_fl;
-				} else {
-					hql = hql + " where " + hql_where_fl;
-				}	
+ //添加设备分类条件 
+	String hql_where_fl = "";
+	if (!page.getQuerysbfl().equals("0")&&page.getQuerysblb().equals("0")) {
+			if (!page.getQuerysbfl().equals("0")) {
+				hql_where_fl = "lbid in (select id from HysyLb where parentid='"+page.getQuerysbfl()+"')";
+			} 
+				if (hql.indexOf("where") > 0) {
+				hql = hql + " and " + hql_where_fl;
+			} else {
+				hql = hql + " where " + hql_where_fl;
+			}	
+
+		}
 	
-			}
-	
-		//添加设施类别条件
+	//添加设备类别条件
 		String hql_where_lb = "";
-		if (!page.getQuerysslb().equals("0")) {
+		if (!page.getQuerysblb().equals("0")) {
 			
-			if (!page.getQuerysslb().equals("0")) {	
-				hql_where_lb = "lbid= " + page.getQuerysslb();
+			if (!page.getQuerysblb().equals("0")) {	
+				hql_where_lb = "lbid= " + page.getQuerysblb();
 			} 
 			
 			if (hql.indexOf("where") > 0) {
@@ -331,7 +336,7 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		}
 
 		
-		//添加设施状态条件
+		//添加设备状态条件
 		String hql_where_zt = "";
 		if (!page.getQueryyxzt().equals("全部")) {
 			
@@ -347,9 +352,8 @@ public class HysySswhServiceImpl implements IHysySswhService {
 			
 		}
 		
-		
-		//添加设施flag
-		String hql_where_flag = "ssflag in" + JsonStrUtil.getListStr(page.getListflag());
+		//添加设备flag
+		String hql_where_flag = "sbflag in" + JsonStrUtil.getListStr(page.getListflag());
 		// 如果没有where，添加
 		if (hql.indexOf("where") > 0) {
 		    hql = hql + " and " + hql_where_flag;
@@ -357,18 +361,16 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		    hql = hql + " where " + hql_where_flag;
 		}
 		return hql;
-    }
-	
-		
+	    }
 
 	public void saveJybm(List<String> list_jybm){
 		try {
 			if (list_jybm!=null&&list_jybm.size()>0) {
 				for (String strjybm : list_jybm) {
-					String jybm_sql = "select jybm from hysy_ssjybm where jybm ='"+strjybm+"'";
+					String jybm_sql = "select jybm from hysy_sbjybm where jybm ='"+strjybm+"'";
 					List<Object> list_dbjybm = commonDao.findAll(jybm_sql);
 					if(list_dbjybm.size()==0){
-						String strSql="insert into hysy_ssjybm (jybm) values('"+strjybm+"')";
+						String strSql="insert into hysy_sbjybm (jybm) values('"+strjybm+"')";
 						commonDao.executeSql(strSql);
 					}
 				}
@@ -381,25 +383,25 @@ public class HysySswhServiceImpl implements IHysySswhService {
 	private List<String> getJybm(String jyqk){
 		List<String> list_jybm = new ArrayList<String>();
 		if(jyqk!=null&&!jyqk.equals("")){
-			List<HysySsJyqk> ary_jyqk = JsonUtil.getDTOList(jyqk, HysySsJyqk.class);
-			for (HysySsJyqk hysySsJyqk : ary_jyqk) {
-				list_jybm.add(hysySsJyqk.getBm());
+			List<HysySbJyqk> ary_jyqk = JsonUtil.getDTOList(jyqk, HysySbJyqk.class);
+			for (HysySbJyqk hysySbJyqk : ary_jyqk) {
+				list_jybm.add(hysySbJyqk.getBm());
 			}
 		}
 		return list_jybm;
 	}
 	
-	public boolean saveHysySsxx(HysySsxx hysyssxx) {
+	public boolean saveHysySbxx(HysySbxx hysysbxx) {
 		try {
-			if (hysyssxx.getId() != null) {
-				HysySsxx dbhysyssxx = commonDao.getObjectById(HysySsxx.class, hysyssxx.getId());
-				//BeanUtils.copyProperties(dbhysyssxx, hysyssxx);
-				dozermapper.map(hysyssxx, dbhysyssxx);
-				commonDao.updateObject(dbhysyssxx);
-				saveJybm(getJybm(hysyssxx.getJyqk()));
+			if (hysysbxx.getId() != null) {
+				HysySbxx dbhysysbxx = commonDao.getObjectById(HysySbxx.class, hysysbxx.getId());
+				//BeanUtils.copyProperties(dbhysysbxx, hysysbxx);
+				dozermapper.map(hysysbxx, dbhysysbxx);
+				commonDao.updateObject(dbhysysbxx);
+				saveJybm(getJybm(hysysbxx.getJyqk()));
 			} else {
-				commonDao.insertObject(hysyssxx);
-				saveJybm(getJybm(hysyssxx.getJyqk()));
+				commonDao.insertObject(hysysbxx);
+				saveJybm(getJybm(hysysbxx.getJyqk()));
 			}
 			return true;
 		} catch (Exception e) {
@@ -408,9 +410,9 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		return false;
 	}
 	
-	public boolean deleteHysySsxx(List idList) {
+	public boolean deleteHysySbxx(List idList) {
 		try {
-			commonDao.deleteAll(HysySsxx.class, "id in (:idList)", new String[] {"idList"}, new Object[] {idList});
+			commonDao.deleteAll(HysySbxx.class, "id in (:idList)", new String[] {"idList"}, new Object[] {idList});
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -418,9 +420,9 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		return false;
 	}
 	
-	public HysySsxx getHysySsxxById(Integer id) {
+	public HysySbxx getHysySbxxById(Integer id) {
 		try {
-			List<HysySsxx> szhzsz_list = commonDao.findAll(HysySsxx.class, "id=?", new Object[]{id});
+			List<HysySbxx> szhzsz_list = commonDao.findAll(HysySbxx.class, "id=?", new Object[]{id});
 			return szhzsz_list.get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -430,7 +432,7 @@ public class HysySswhServiceImpl implements IHysySswhService {
 	
 	public List getYear() {
 		try {
-			String hql = "select distinct year(lrrq) FROM HysySsxx order by year(lrrq) desc";
+			String hql = "select distinct year(lrrq) FROM HysySbxx order by year(lrrq) desc";
 			return commonDao.getHqlList(hql);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -477,13 +479,12 @@ public class HysySswhServiceImpl implements IHysySswhService {
 	}
 
 	public Integer getLbid(String lbmc) {
-		return getSsid(lbmc);
+		return getSbid(lbmc);
 	}
 	
-//	@SuppressWarnings("null")	
-	public String getSsflcx() {
+	public String getSbflcx() {
 		try {
-			List<HysyLb> list_lb = commonDao.findAll(HysyLb.class, "type=2", new Object[] {});
+			List<HysyLb> list_lb = commonDao.findAll(HysyLb.class, "type=1", new Object[] {});
 			HysyLb hysylb=new HysyLb("全部",0,0);
 			list_lb.add(0,hysylb);
 			JsonConfig jsonConfig = new JsonConfig();
@@ -496,7 +497,7 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		return null;
 	}
 
-	public String getSslbcx(Integer flid) {
+	public String getSblbcx(Integer flid) {
 		try {
 			List<HysyLb> list_lb = commonDao.findAll(HysyLb.class, "parentid=?", new Object[] {flid});
 			HysyLb hysylb=new HysyLb("全部",0,0);
@@ -515,11 +516,9 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		try {
 			String jsonStr="[{id:0,name:\"全部\"},";
 			String jybm_sql="";
-			if (Integer.parseInt(danwei)=='1'){
-				jybm_sql = "select id,name from xtglt_danwei where lvl='2' order by name";
-			}else{
-				jybm_sql = "select id,name from xtglt_danwei where id='"+danwei+"' order by name";
-			}
+			
+			jybm_sql = "select id,name from xtglt_danwei FROM xtglt_danwei where id in (SELECT id  FROM xtglt_danwei WHERE id ='"+danwei+"' or superior_id = '"+danwei+"')order by name";
+					
 			List<Object> list_jybm = commonDao.findAll(jybm_sql);
 			for (Object object : list_jybm) {
 				Object[] ary_obj = (Object[])object;
@@ -538,7 +537,8 @@ public class HysySswhServiceImpl implements IHysySswhService {
 
 	public String getDanweiHasData(String danwei) {
 		try {
-         	String jybm_sql="";
+
+			String jybm_sql="";
 			String jsonStr="[";
 			jybm_sql = "select id,name from xtglt_danwei where id in (SELECT id  FROM xtglt_danwei WHERE id ='"+danwei+"' or superior_id = '"+danwei+"')order by name";
 			List<Object> list_jybm = commonDao.findAll(jybm_sql);
@@ -560,7 +560,7 @@ public class HysySswhServiceImpl implements IHysySswhService {
 	
 	public List getXcjyYear() {
 		try {
-			String hql = "select distinct year(xcrq) FROM HysySsxx where xcrq is not null order by year(xcrq) desc";
+			String hql = "select distinct year(xcrq) FROM HysySbxx where xcrq is not null order by year(xcrq) desc";
 			return commonDao.getHqlList(hql);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -573,14 +573,15 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		return JsonStrUtil.getJsonYearsByList(list_year);
 	}
 
-	public boolean shsscl(HysySsxx hysyssxx) {
+
+	public boolean shsbcl(HysySbxx hysysbxx) {
 		try {
-			HysySsxx dbhysyssxx = commonDao.getObjectById(HysySsxx.class, hysyssxx.getId());
-			dbhysyssxx.setLrdwId(dbhysyssxx.getLrdwId());
-			dbhysyssxx.setSsshsj(hysyssxx.getSsshsj());
-			dbhysyssxx.setSsshry(hysyssxx.getSsshry());
+			HysySbxx dbhysysbxx = commonDao.getObjectById(HysySbxx.class, hysysbxx.getId());
+			dbhysysbxx.setLrdwId(dbhysysbxx.getLrdwId());
+			dbhysysbxx.setSbshsj(hysysbxx.getSbshsj());
+			dbhysysbxx.setSbshry(hysysbxx.getSbshry());
 			
-			String tmp_shyj = hysyssxx.getSsshyj();
+			String tmp_shyj = hysysbxx.getSbshyj();
 			if (tmp_shyj.indexOf("\r\n") > 0) {
 				tmp_shyj=tmp_shyj.replaceAll("\\r\\n", "\\\r\\\n");
 			}else {
@@ -588,19 +589,19 @@ public class HysySswhServiceImpl implements IHysySswhService {
 					tmp_shyj=tmp_shyj.replaceAll("\\n", "\\\r\\\n");
 				}
 			}
-			dbhysyssxx.setSsshyj(tmp_shyj);
-			dbhysyssxx.setSsflag(hysyssxx.getSsflag());
-			commonDao.updateObject(dbhysyssxx);
+			dbhysysbxx.setSbshyj(tmp_shyj);
+			dbhysysbxx.setSbflag(hysysbxx.getSbflag());
+			commonDao.updateObject(dbhysysbxx);
 		    return true;
 		} catch (Exception e) {
 		    e.printStackTrace();	    
 		    return false;
 		}
-	}
 	
-	public boolean saveHysySsxx(List ssList) {
+	}
+	public boolean saveHysySbxx(List sbList) {
 		try {
-			commonDao.updateObject(ssList);
+			commonDao.updateObject(sbList);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -609,4 +610,5 @@ public class HysySswhServiceImpl implements IHysySswhService {
 		}
 	}
 
+	
 }

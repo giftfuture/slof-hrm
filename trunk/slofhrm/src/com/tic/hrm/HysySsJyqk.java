@@ -1,6 +1,6 @@
-package com.tic.hjsb;
+package com.tic.hrm;
 
-public class HysySbJyqk {
+public class HysySsJyqk {
 
 	private String bm;
 	private String bh;

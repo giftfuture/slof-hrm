@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tic.hrm.HysySbJyqk;
+import com.tic.hrm.JsonUtil;
+
 import jlcx.DBConnConf;
 
 public class UpdateJcrq {

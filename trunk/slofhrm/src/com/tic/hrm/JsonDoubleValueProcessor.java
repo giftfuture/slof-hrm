@@ -1,4 +1,4 @@
-package com.tic.hjsb;
+package com.tic.hrm;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONNull;

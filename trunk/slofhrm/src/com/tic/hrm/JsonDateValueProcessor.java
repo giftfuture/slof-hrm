@@ -1,4 +1,4 @@
-package com.tic.hjsb;
+package com.tic.hrm;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
