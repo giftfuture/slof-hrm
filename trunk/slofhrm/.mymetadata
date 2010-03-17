@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="slofhrm"
+  name="ljhrm"
   id="myeclipse.1261545700046"
   context-root="/hjsb"
   j2ee-spec="1.4"
-  archive="slofhrm.war">
+  archive="ljhrm.war">
   <attributes>
     <attribute name="webrootdir" value="WebRoot" />
   </attributes>
